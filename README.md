@@ -4,13 +4,29 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+## Documentation
 
-A few resources to get you started if this is your first Flutter project:
+### models Folder
+The models folder contains all the data models used within the Flutter application. These models represent the structure of the data that the application works with. This folder is essential for maintaining a clean architecture by separating data representations from business logic and UI.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+#### Purpose
+The main purpose of the `models` folder is to:
+1. Define the structure of data objects.
+2. Handle data serialization and deserialization.
+3. Ensure type safety within the application.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Typical Contents
+The `models` folder typically contains:
+- Dart classes representing different data entities.
+- Utility methods for data manipulation and validation.
+
+### Song Model
+
+The `Song` class is a data model that represents a song in the Flutter application. This class is used to define the structure of a song object, including its title, artist, album, cover art, and file path.
+
+#### Purpose
+The `Song` class is designed to:
+1. Provide a structured way to represent song data.
+2. Facilitate the handling of song metadata within the application.
+3. Ensure type safety for song-related data.
+
