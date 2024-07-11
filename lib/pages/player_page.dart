@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -94,6 +93,13 @@ class PlayerPageState extends State<PlayerPage> {
     setIsPlaying(false);
   }
 
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return '$minutes:$seconds';
+  }
+
   @override
   Widget build(BuildContext context) {
     final song = widget.songs[currentIndex];
@@ -111,6 +117,35 @@ class PlayerPageState extends State<PlayerPage> {
           Text(song.title, style: const TextStyle(fontSize: 24)),
           Text(song.artist, style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 20),
+          StreamBuilder<Duration>(
+            stream: widget.player.positionStream,
+            builder: (context, snapshot) {
+              final position = snapshot.data ?? Duration.zero;
+              final duration = widget.player.duration ?? Duration.zero;
+              return Column(
+                children: [
+                  Slider(
+                    min: 0.0,
+                    max: duration.inMilliseconds.toDouble(),
+                    value: position.inMilliseconds.toDouble(),
+                    onChanged: (value) {
+                      widget.player.seek(Duration(milliseconds: value.toInt()));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(formatDuration(position)),
+                        Text(formatDuration(duration)),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -124,9 +159,13 @@ class PlayerPageState extends State<PlayerPage> {
                       onPressed: pauseSong,
                     )
                   : IconButton(
-                      icon: const Icon(Icons.play_arrow), onPressed: playSong),
+                      icon: const Icon(Icons.play_arrow),
+                      onPressed: playSong,
+                    ),
               IconButton(
-                  icon: const Icon(Icons.skip_next), onPressed: playNext),
+                icon: const Icon(Icons.skip_next),
+                onPressed: playNext,
+              ),
             ],
           ),
         ],
