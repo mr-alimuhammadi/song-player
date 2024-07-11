@@ -1,6 +1,6 @@
-# song_player
+# Song Player
 
-A new Flutter project.
+A Flutter application for playing songs from a selected folder. This project allows users to choose a folder containing music files and play them using the just_audio package.
 
 ## Getting Started
 
@@ -29,4 +29,7 @@ The `Song` class is designed to:
 1. Provide a structured way to represent song data.
 2. Facilitate the handling of song metadata within the application.
 3. Ensure type safety for song-related data.
+
+### pages Folder
+The pages folder contains the primary screens of the application. Each screen is responsible for a specific part of the app's functionality
 
