@@ -119,6 +119,30 @@ class PlaylistPageState extends State<PlaylistPage> {
     setIsPlaying(false);
   }
 
+  void openPlayerPage(int index) {
+    setState(() {
+      currentIndex = index;
+      isPlayerPageOpen = true;
+    });
+    playSong();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PlayerPage(
+          songs: songs,
+          currentIndex: currentIndex,
+          setCurrentIndex: setCurrentIndex,
+          inPlayerSongIndex: inPlayerSongIndex,
+          setInPlayerSongIndex: setInPlayerSongIndex,
+          isPlaying: isPlaying,
+          setIsPlaying: setIsPlaying,
+          player: audioPlayer,
+          setIsPlayerPageOpen: setIsPlayerPageOpen,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,30 +166,13 @@ class PlaylistPageState extends State<PlaylistPage> {
                         ? const Icon(Icons.pause)
                         : const Icon(Icons.play_arrow),
                     onPressed: () {
-                      setState(() {
-                        currentIndex = index;
-                        isPlayerPageOpen = true;
-                      });
-                      if (isPlaying && currentIndex == index) {
+                      if (isPlaying) {
                         pauseSong();
+                        if (currentIndex != index) {
+                          openPlayerPage(index);
+                        }
                       } else {
-                        playSong();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PlayerPage(
-                              songs: songs,
-                              currentIndex: currentIndex,
-                              setCurrentIndex: setCurrentIndex,
-                              inPlayerSongIndex: inPlayerSongIndex,
-                              setInPlayerSongIndex: setInPlayerSongIndex,
-                              isPlaying: isPlaying,
-                              setIsPlaying: setIsPlaying,
-                              player: audioPlayer,
-                              setIsPlayerPageOpen: setIsPlayerPageOpen,
-                            ),
-                          ),
-                        );
+                        openPlayerPage(index);
                       }
                     },
                   ),
