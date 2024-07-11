@@ -2,6 +2,30 @@
 
 A Flutter application for playing songs from a selected folder. This project allows users to choose a folder containing music files and play them using the just_audio package.
 
+## Usage
+#### step-by-step guide:
+
+1. Open your terminal or command prompt.
+2. Clone the song player repository by running the following command:
+```
+git clone https://github.com/mr-alimuhammadi/song-player.git
+```
+This will download the repository to your local machine.
+
+3. Change into the cloned directory:
+```
+cd song-player
+```
+4. Run the following command to install the project's dependencies:
+```
+flutter pub get
+```
+This will download and install all the dependencies specified in the `pubspec.yaml` file.
+
+That's it! You should now have a local copy of the song player project with all its dependencies installed. You can now run the project using `flutter run` or `flutter debug` commands.
+
+Note: Make sure you have Flutter installed on your machine and have set up your environment correctly before running these commands.
+
 ## Documentation
 
 ### models Folder
