@@ -14,6 +14,7 @@ class PlayerPage extends StatefulWidget {
   final bool isPlaying;
   final ValueChanged<bool> setIsPlaying;
   final AudioPlayer player;
+  final ValueChanged<bool> setIsPlayerPageOpen;
 
   const PlayerPage(
       {super.key,
@@ -24,7 +25,8 @@ class PlayerPage extends StatefulWidget {
       required this.setInPlayerSongIndex,
       required this.isPlaying,
       required this.setIsPlaying,
-      required this.player});
+      required this.player,
+      required this.setIsPlayerPageOpen});
 
   @override
   PlayerPageState createState() => PlayerPageState();
@@ -63,6 +65,12 @@ class PlayerPageState extends State<PlayerPage> {
       inPlayerSongIndex = widget.inPlayerSongIndex;
       isPlaying = widget.isPlaying;
     });
+    // Listen to the processing state stream
+    widget.player.processingStateStream.listen((state) {
+      if (state == ProcessingState.completed) {
+        playNext();
+      }
+    });
   }
 
   void playSong() {
@@ -98,6 +106,12 @@ class PlayerPageState extends State<PlayerPage> {
     final minutes = twoDigits(duration.inMinutes.remainder(60));
     final seconds = twoDigits(duration.inSeconds.remainder(60));
     return '$minutes:$seconds';
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.setIsPlayerPageOpen(false);
   }
 
   @override

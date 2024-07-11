@@ -23,6 +23,13 @@ class PlaylistPageState extends State<PlaylistPage> {
   final AudioPlayer audioPlayer = AudioPlayer();
   final Audiotagger _tagger = Audiotagger();
 
+  bool isPlayerPageOpen = false;
+  void setIsPlayerPageOpen(bool open) {
+    setState(() {
+      isPlayerPageOpen = open;
+    });
+  }
+
   List<Song> songs = [];
   int currentIndex = 0;
   void setCurrentIndex(int index) {
@@ -49,6 +56,14 @@ class PlaylistPageState extends State<PlaylistPage> {
   void initState() {
     super.initState();
     fetchSongs();
+    if (!isPlayerPageOpen) {
+      audioPlayer.processingStateStream.listen((state) {
+        if (state == ProcessingState.completed) {
+          setCurrentIndex((currentIndex + 1) % songs.length);
+          playSong();
+        }
+      });
+    }
   }
 
   Future<void> fetchSongs() async {
@@ -129,6 +144,7 @@ class PlaylistPageState extends State<PlaylistPage> {
                     onPressed: () {
                       setState(() {
                         currentIndex = index;
+                        isPlayerPageOpen = true;
                       });
                       if (isPlaying && currentIndex == index) {
                         pauseSong();
@@ -146,6 +162,7 @@ class PlaylistPageState extends State<PlaylistPage> {
                               isPlaying: isPlaying,
                               setIsPlaying: setIsPlaying,
                               player: audioPlayer,
+                              setIsPlayerPageOpen: setIsPlayerPageOpen,
                             ),
                           ),
                         );
