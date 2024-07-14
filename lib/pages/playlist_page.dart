@@ -69,6 +69,12 @@ class PlaylistPageState extends State<PlaylistPage> {
     }
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    audioPlayer.dispose();
+  }
+
   Future<void> fetchSongs() async {
     if (await Permission.storage.request().isGranted) {
       final folder = Directory(widget.folderPath);
