@@ -25,10 +25,10 @@ class StartupPage extends StatelessWidget {
           children: [
             Container(
               alignment: Alignment.topCenter,
-              padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Image.asset("asstes/images/airpod.png"),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 0),
             const Text(
               'Getting Started',
               style: TextStyle(
@@ -36,7 +36,7 @@ class StartupPage extends StatelessWidget {
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 25),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 elevation: 10,
@@ -66,14 +66,14 @@ class StartupPage extends StatelessWidget {
               child:
                   const Text('Choose Folder', style: TextStyle(fontSize: 20)),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 100),
             const Text(
-              'Mohammad mahdi Attai',
-              style: TextStyle(fontSize: 20, color: Colors.white),
+              'All rights reserved © 2024',
+              style: TextStyle(fontSize: 15, color: Colors.white),
             ),
             const Text(
-              'Mohammad Ali Mohammadi',
-              style: TextStyle(fontSize: 20, color: Colors.white),
+              'M. Alimuhammadi & M. Attai',
+              style: TextStyle(fontSize: 15, color: Colors.white),
             ),
           ],
         ),
