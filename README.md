@@ -26,6 +26,44 @@ That's it! You should now have a local copy of the song player project with all 
 
 Note: Make sure you have Flutter installed on your machine and have set up your environment correctly before running these commands.
 
+## Dependencies
+
+### General Dependencies
+
+- **flutter**: The Flutter framework itself.
+- **file_picker**: ^5.2.2 - A package for file picking functionality.
+- **audiotagger**: ^2.2.1 - A package for reading and writing audio metadata.
+- **just_audio**: ^0.9.18 - A feature-rich audio player for Flutter.
+- **provider**: ^6.0.1 - A wrapper around InheritedWidget to make state management easier.
+- **permission_handler**: ^11.1.0 - A package to handle permissions for iOS and Android.
+
+Note: the **permission_handler** compatible up to Android 12
+
+### Additional Dependencies
+
+- **cupertino_icons**: ^1.0.6 - The Cupertino Icons font for iOS style icons.
+
+### Development Dependencies
+
+- **flutter_test**: The Flutter testing framework.
+- **flutter_lints**: ^3.0.0 - A package containing a set of recommended lints to encourage good coding practices.
+
+## Environment
+
+- **Dart SDK**: '>=3.4.0 <4.0.0'
+
+## Versioning
+
+- **Current Version**: 1.0.0+1
+
+## Assets
+
+The following assets are included in the project:
+
+- `assets/images/airpods.png`
+- `assets/images/default_cover.png`
+
+
 ## Documentation
 
 ### models Folder
