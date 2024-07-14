@@ -151,18 +151,20 @@ class PlayerPageState extends State<PlayerPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          song.cover != null
-              ? Container(
-                  padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40.0),
-                    child: Image.memory(
-                      song.cover!,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
-              : const Icon(Icons.music_note, size: 430, color: Colors.white),
+          Container(
+            padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(40.0),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: song.cover != null
+                      ? Image.memory(
+                          song.cover!,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset("assets/images/default_cover.png"),
+                )),
+          ),
           const SizedBox(height: 40),
           Text(song.title,
               style: const TextStyle(fontSize: 24, color: Colors.white)),
