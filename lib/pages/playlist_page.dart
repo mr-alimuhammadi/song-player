@@ -77,6 +77,7 @@ class PlaylistPageState extends State<PlaylistPage> {
             .listSync()
             .whereType<File>()
             .map((file) => file.path)
+            .where((path) => path.endsWith(".mp3") || path.endsWith(".m4a"))
             .toList();
 
         for (var filePath in files) {
