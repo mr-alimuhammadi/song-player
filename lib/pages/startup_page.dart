@@ -26,7 +26,7 @@ class StartupPage extends StatelessWidget {
             Container(
               alignment: Alignment.topCenter,
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: Image.asset("asstes/images/airpod.png"),
+              child: Image.asset("assets/images/airpods.png"),
             ),
             const SizedBox(height: 0),
             const Text(

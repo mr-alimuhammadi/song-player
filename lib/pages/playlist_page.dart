@@ -183,12 +183,17 @@ class PlaylistPageState extends State<PlaylistPage> {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         child: ListTile(
-                          leading: song.cover != null
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  child: Image.memory(song.cover!),
-                                )
-                              : const Icon(Icons.music_note),
+                          leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: AspectRatio(
+                                aspectRatio: 1,
+                                child: song.cover != null
+                                    ? Image.memory(
+                                        song.cover!,
+                                      )
+                                    : Image.asset(
+                                        "assets/images/default_cover.png"),
+                              )),
                           title: Text(
                             song.title,
                             style: const TextStyle(
