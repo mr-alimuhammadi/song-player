@@ -7,17 +7,17 @@ A Flutter application for playing songs from a selected folder. This project all
 
 1. Open your terminal or command prompt.
 2. Clone the song player repository by running the following command:
-```
+```sh
 git clone https://github.com/mr-alimuhammadi/song-player.git
 ```
 This will download the repository to your local machine.
 
 3. Change into the cloned directory:
-```
+```sh
 cd song-player
 ```
 4. Run the following command to install the project's dependencies:
-```
+```sh
 flutter pub get
 ```
 This will download and install all the dependencies specified in the `pubspec.yaml` file.
