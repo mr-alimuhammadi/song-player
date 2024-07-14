@@ -32,6 +32,7 @@ class PlayerPage extends StatefulWidget {
 
 class PlayerPageState extends State<PlayerPage> {
   int currentIndex = 0;
+
   void setCurrentIndex(int index) {
     setState(() {
       currentIndex = index;
@@ -40,6 +41,7 @@ class PlayerPageState extends State<PlayerPage> {
   }
 
   int inPlayerSongIndex = 0;
+
   void setInPlayerSongIndex(int index) {
     setState(() {
       inPlayerSongIndex = index;
@@ -48,6 +50,7 @@ class PlayerPageState extends State<PlayerPage> {
   }
 
   bool isPlaying = false;
+
   void setIsPlaying(bool playing) {
     setState(() {
       isPlaying = playing;
@@ -116,19 +119,56 @@ class PlayerPageState extends State<PlayerPage> {
   Widget build(BuildContext context) {
     final song = widget.songs[currentIndex];
     return Scaffold(
+      backgroundColor: const Color(0xFF130f1d),
       appBar: AppBar(
-        title: const Text('Now Playing'),
+        backgroundColor: const Color(0xFF130f1d),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Transform.rotate(
+              angle: -3.14 / 2,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+              )),
+        ),
+        title: Container(
+          decoration: const BoxDecoration(
+              border: Border(
+                  top: BorderSide(color: Colors.white, width: 1),
+                  bottom: BorderSide(color: Colors.white, width: 1))),
+          child: const Text(
+            'SONG PLAYER',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           song.cover != null
-              ? Image.memory(song.cover!)
-              : const Icon(Icons.music_note),
-          const SizedBox(height: 20),
-          Text(song.title, style: const TextStyle(fontSize: 24)),
-          Text(song.artist, style: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 20),
+              ? Container(
+                  padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40.0),
+                    child: Image.memory(
+                      song.cover!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              : const Icon(Icons.music_note, size: 430, color: Colors.white),
+          const SizedBox(height: 40),
+          Text(song.title,
+              style: const TextStyle(fontSize: 24, color: Colors.white)),
+          Text(song.artist,
+              style: const TextStyle(fontSize: 18, color: Colors.white)),
+          const SizedBox(height: 30),
           StreamBuilder<Duration>(
             stream: widget.player.positionStream,
             builder: (context, snapshot) {
@@ -137,6 +177,8 @@ class PlayerPageState extends State<PlayerPage> {
               return Column(
                 children: [
                   Slider(
+                    activeColor: Colors.deepPurpleAccent,
+                    inactiveColor: Colors.grey,
                     min: 0.0,
                     max: duration.inMilliseconds.toDouble(),
                     value: position.inMilliseconds.toDouble(),
@@ -149,8 +191,14 @@ class PlayerPageState extends State<PlayerPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(formatDuration(position)),
-                        Text(formatDuration(duration)),
+                        Text(
+                          formatDuration(position),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          formatDuration(duration),
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ],
                     ),
                   ),
@@ -158,28 +206,66 @@ class PlayerPageState extends State<PlayerPage> {
               );
             },
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.skip_previous),
-                onPressed: playPrevious,
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const IconButton(
+              icon: Icon(
+                Icons.shuffle_outlined,
+                size: 35,
+                color: Colors.grey,
               ),
-              isPlaying && inPlayerSongIndex == currentIndex
-                  ? IconButton(
-                      icon: const Icon(Icons.pause),
-                      onPressed: pauseSong,
-                    )
-                  : IconButton(
-                      icon: const Icon(Icons.play_arrow),
-                      onPressed: playSong,
+              onPressed: null,
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.skip_previous,
+                size: 50,
+                color: Colors.white,
+              ),
+              onPressed: playPrevious,
+            ),
+            isPlaying && inPlayerSongIndex == currentIndex
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),
+                    child: Container(
+                      color: Colors.deepPurpleAccent,
+                      child: IconButton(
+                        icon: const Icon(Icons.pause,
+                            size: 50, color: Colors.white),
+                        onPressed: pauseSong,
+                      ),
                     ),
-              IconButton(
-                icon: const Icon(Icons.skip_next),
-                onPressed: playNext,
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(50.0),
+                    child: Container(
+                      color: Colors.deepPurpleAccent,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.play_arrow,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                        onPressed: playSong,
+                      ),
+                    ),
+                  ),
+            IconButton(
+              icon: const Icon(
+                Icons.skip_next,
+                size: 50,
+                color: Colors.white,
               ),
-            ],
-          ),
+              onPressed: playNext,
+            ),
+            const IconButton(
+              icon: Icon(
+                Icons.repeat_one_outlined,
+                size: 35,
+                color: Colors.grey,
+              ),
+              onPressed: null,
+            ),
+          ]),
         ],
       ),
     );

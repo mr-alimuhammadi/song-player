@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:audiotagger/models/tag.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -24,6 +23,7 @@ class PlaylistPageState extends State<PlaylistPage> {
   final Audiotagger _tagger = Audiotagger();
 
   bool isPlayerPageOpen = false;
+
   void setIsPlayerPageOpen(bool open) {
     setState(() {
       isPlayerPageOpen = open;
@@ -32,6 +32,7 @@ class PlaylistPageState extends State<PlaylistPage> {
 
   List<Song> songs = [];
   int currentIndex = 0;
+
   void setCurrentIndex(int index) {
     setState(() {
       currentIndex = index;
@@ -39,6 +40,7 @@ class PlaylistPageState extends State<PlaylistPage> {
   }
 
   int inPlayerSongIndex = -1;
+
   void setInPlayerSongIndex(int index) {
     setState(() {
       inPlayerSongIndex = index;
@@ -46,6 +48,7 @@ class PlaylistPageState extends State<PlaylistPage> {
   }
 
   bool isPlaying = false;
+
   void setIsPlaying(bool playing) {
     setState(() {
       isPlaying = playing;
@@ -146,39 +149,87 @@ class PlaylistPageState extends State<PlaylistPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Playlist'),
-      ),
-      body: songs.isEmpty
-          ? const Center(child: Text('No songs found in the selected folder.'))
-          : ListView.builder(
-              itemCount: songs.length,
-              itemBuilder: (context, index) {
-                final song = songs[index];
-                return ListTile(
-                  leading: song.cover != null
-                      ? Image.memory(song.cover!)
-                      : const Icon(Icons.music_note),
-                  title: Text(song.title),
-                  subtitle: Text(song.artist),
-                  trailing: IconButton(
-                    icon: isPlaying && currentIndex == index
-                        ? const Icon(Icons.pause)
-                        : const Icon(Icons.play_arrow),
-                    onPressed: () {
-                      if (isPlaying) {
-                        pauseSong();
-                        if (currentIndex != index) {
-                          openPlayerPage(index);
-                        }
-                      } else {
-                        openPlayerPage(index);
-                      }
-                    },
-                  ),
-                );
-              },
-            ),
-    );
+        appBar: AppBar(
+          leading: const Text(""),
+          centerTitle: true,
+          backgroundColor: const Color(0xFF130a19),
+          title: const Text('PLAYLIST',
+              style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold)),
+        ),
+        body: songs.isEmpty
+            ? Container(
+                color: const Color(0xFF140a1a),
+                alignment: Alignment.center,
+                child: const Text(
+                  'No songs found in the selected folder.',
+                  style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w300),
+                ))
+            : Container(
+                color: const Color(0xFF140a1a),
+                child: ListView.builder(
+                  itemCount: songs.length,
+                  itemBuilder: (context, index) {
+                    final song = songs[index];
+                    return Container(
+                        margin: const EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black54, width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: ListTile(
+                          leading: song.cover != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.memory(song.cover!),
+                                )
+                              : const Icon(Icons.music_note),
+                          title: Text(
+                            song.title,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          subtitle: Text(
+                            song.artist,
+                            style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          trailing: IconButton(
+                            icon: isPlaying && currentIndex == index
+                                ? const Icon(
+                                    Icons.pause,
+                                    size: 30,
+                                    color: Colors.white,
+                                  )
+                                : const Icon(
+                                    Icons.play_arrow,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                            onPressed: () {
+                              if (isPlaying) {
+                                pauseSong();
+                                if (currentIndex != index) {
+                                  openPlayerPage(index);
+                                }
+                              } else {
+                                openPlayerPage(index);
+                              }
+                            },
+                          ),
+                        ));
+                  },
+                ),
+              ));
   }
 }

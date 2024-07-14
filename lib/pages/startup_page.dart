@@ -10,18 +10,42 @@ class StartupPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Song Player'),
+        toolbarHeight: 50,
+        backgroundColor: Colors.black38,
+        centerTitle: true,
+        title: const Text(
+          'SONG STORE',
+          style: TextStyle(fontSize: 30, color: Colors.white),
+        ),
       ),
+      backgroundColor: Colors.black38,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Welcome to the Song Player!',
-              style: TextStyle(fontSize: 20),
+            Container(
+              alignment: Alignment.topCenter,
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+              child: Image.asset("asstes/images/airpod.png"),
             ),
             const SizedBox(height: 20),
+            const Text(
+              'Getting Started',
+              style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 10,
+                shadowColor: Colors.blue,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.deepPurpleAccent,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              ),
               onPressed: () async {
                 if (await _requestPermission()) {
                   String? folderPath =
@@ -39,7 +63,17 @@ class StartupPage extends StatelessWidget {
                   }
                 }
               },
-              child: const Text('Choose Folder'),
+              child:
+                  const Text('Choose Folder', style: TextStyle(fontSize: 20)),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'Mohammad mahdi Attai',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            const Text(
+              'Mohammad Ali Mohammadi',
+              style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ],
         ),
